@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860422104667",
+    "project_id": "esacc-2fcb0",
+    "storage_bucket": "esacc-2fcb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860422104667:android:36b404dc60564da244817e",
+        "android_client_info": {
+          "package_name": "com.example.easacc_web_view"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9lmPhSuwf9JZfohWh3QHgx35cMqWqDU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
