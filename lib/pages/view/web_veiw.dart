@@ -41,20 +41,22 @@ class _WebVeiwPageState extends State<WebVeiwPage> {
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : Stack(
-            children: [
-              WebViewWidget(
-                controller: controller,
-              ),
-              Positioned(
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+        : SafeArea(
+          child: Stack(
+              children: [
+                WebViewWidget(
+                  controller: controller,
                 ),
-              )
-            ],
-          );
+                Positioned(
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                )
+              ],
+            ),
+        );
   }
 }

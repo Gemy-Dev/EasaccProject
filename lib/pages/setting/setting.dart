@@ -1,13 +1,10 @@
-
+import 'package:easacc_web_view/pages/setting/bt_wifi.dart';
 import 'package:easacc_web_view/pages/view/web_veiw.dart';
-import 'package:easacc_web_view/pages/setting/wifi_devices.dart';
 import 'package:easacc_web_view/services/auth/auth_firebase.dart';
 import 'package:easacc_web_view/services/auth/auth_provider.dart';
 import 'package:easacc_web_view/utility/extentions.dart';
 import 'package:easacc_web_view/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-
-import 'bluetooth_devices.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -26,7 +23,6 @@ class _SettingPageState extends State<SettingPage> {
   late TextEditingController urlController;
   final _formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,35 +31,36 @@ class _SettingPageState extends State<SettingPage> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () async => await AppAuthProvider(auth :AuthFirebase()).logout(),
+              onPressed: () async =>
+                  await AppAuthProvider(auth: AuthFirebase()).logout(),
               icon: const Icon(Icons.logout))
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+        padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
         child: ListView(
           children: [
             Form(
               key: _formKey,
               child: TextFormField(
                 controller: urlController,
-                validator:  _validateCheck,
+                validator: _validateCheck,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), hintText: 'Enter Url'),
               ),
             ),
             const SizedBox(height: 20),
+            const SizedBox(height: 150, child: BtWifiNetwork()),
             const SizedBox(height: 20),
+
             CustomButton(
-                child: const Text('Go'),
+                text: 'Go',
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     context.push(WebVeiwPage(url: urlController.text));
                   }
                 }),
-            const SizedBox(height: 20),
-            const SizedBox(height: 150, child: BlueToothWidget()),
-             const SizedBox(height: 150, child: WifiWidget()),
+           
           ],
         ),
       ),
@@ -75,8 +72,8 @@ class _SettingPageState extends State<SettingPage> {
     urlController.dispose();
     super.dispose();
   }
-  String? _validateCheck(String? url){
-return  Uri.parse(url ?? '').isAbsolute
-                    ? null
-                    : "Please Enter A valid Url";}
+
+  String? _validateCheck(String? url) {
+    return Uri.parse(url ?? '').isAbsolute ? null : "Please Enter A valid Url";
+  }
 }
