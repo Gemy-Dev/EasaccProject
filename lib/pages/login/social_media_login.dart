@@ -47,7 +47,7 @@ class _SocialMediaLoginState extends State<SocialMediaLogin> {
                       height: 48,
                       child: ElevatedButton.icon(
                           icon: const Icon(
-                            Icons.facebook_outlined,
+                            Icons.g_mobiledata,
                             color: Colors.green,
                           ),
                           label: const Text('Google'),

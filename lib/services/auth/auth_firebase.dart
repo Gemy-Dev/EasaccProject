@@ -29,6 +29,11 @@ class AuthFirebase extends Auth{
   @override
   Future<UserCredential> signInWithGoogle()async {
      try {
+
+
+
+
+
       GoogleSignInAccount? googleUser;
       if (Platform.isIOS) {
         googleUser = await GoogleSignIn(
@@ -49,7 +54,7 @@ class AuthFirebase extends Auth{
 
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
-      throw Exception('Error To login With Facebook');
+      throw Exception('Error To login With Google');
     }
   }
    @override

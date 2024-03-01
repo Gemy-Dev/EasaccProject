@@ -13,14 +13,15 @@ class CheckLoginState extends StatefulWidget {
 class _CheckLoginStateState extends State<CheckLoginState> {
   @override
   void initState() {
-FirebaseAuth.instance.currentUser?.reload();    super.initState();
+   super.initState();
   }
   @override
   Widget build(BuildContext context) {
 
     return StreamBuilder(
-        stream: FirebaseAuth.instance.userChanges(),
+        stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
+         
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -29,10 +30,10 @@ FirebaseAuth.instance.currentUser?.reload();    super.initState();
             if (snapshot.data != null) {
               return const SettingPage();
             } else {
-              return SocialMediaLogin();
+              return const SocialMediaLogin();
             }
           }
-          return SocialMediaLogin();
+          return const SocialMediaLogin();
         });
   }
 }
