@@ -5,11 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthFirebase extends Auth{
- 
+class AuthFirebase extends Auth {
   @override
-  Future<UserCredential> signInWithFacebook() async{
-  try {
+  /// [Facebook Login]
+  Future<UserCredential> signInWithFacebook() async {
+    try {
       final LoginResult loginResult = await FacebookAuth.instance.login();
 
       if (loginResult.accessToken != null) {
@@ -24,17 +24,13 @@ class AuthFirebase extends Auth{
       throw Exception('Error to Sign with Facebook');
     }
   }
-  
-
+ /// [Google Login]
   @override
-  Future<UserCredential> signInWithGoogle()async {
-     try {
-
-
-
-
-
+  Future<UserCredential> signInWithGoogle() async {
+    try {
       GoogleSignInAccount? googleUser;
+
+      //ios check 
       if (Platform.isIOS) {
         googleUser = await GoogleSignIn(
                 clientId:
@@ -57,10 +53,10 @@ class AuthFirebase extends Auth{
       throw Exception('Error To login With Google');
     }
   }
-   @override
-  Future<void> logout()async {
- await FirebaseAuth.instance.signOut();
-await FirebaseAuth.instance.currentUser?.reload();
-  }
 
+  @override
+  Future<void> logout() async {
+    await FirebaseAuth.instance.signOut();
+    await FirebaseAuth.instance.currentUser?.reload();
+  }
 }

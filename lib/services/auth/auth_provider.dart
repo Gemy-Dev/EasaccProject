@@ -1,7 +1,7 @@
 import 'package:easacc_web_view/services/auth/auth_firebase.dart';
-import 'package:easacc_web_view/services/internet_checker.dart';
+import 'package:easacc_web_view/core/utility/internet_checker.dart';
 
-import '../../helper/either.dart';
+import '../../core/helper/either.dart';
 
 class AppAuthProvider {
   final AuthFirebase auth;

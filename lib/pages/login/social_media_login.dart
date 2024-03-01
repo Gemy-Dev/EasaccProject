@@ -1,6 +1,6 @@
 import 'package:easacc_web_view/services/auth/auth_firebase.dart';
 import 'package:easacc_web_view/services/auth/auth_provider.dart';
-import 'package:easacc_web_view/utility/extentions.dart';
+import 'package:easacc_web_view/core/utility/extentions.dart';
 import 'package:flutter/material.dart';
 
 class SocialMediaLogin extends StatefulWidget {
