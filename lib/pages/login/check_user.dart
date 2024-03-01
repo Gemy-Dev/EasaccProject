@@ -12,10 +12,14 @@ class CheckLoginState extends StatefulWidget {
 
 class _CheckLoginStateState extends State<CheckLoginState> {
   @override
+  void initState() {
+FirebaseAuth.instance.currentUser?.reload();    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
 
     return StreamBuilder(
-        stream: FirebaseAuth.instance.idTokenChanges(),
+        stream: FirebaseAuth.instance.userChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

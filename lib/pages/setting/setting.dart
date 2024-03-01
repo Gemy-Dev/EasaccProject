@@ -1,7 +1,8 @@
 
-import 'package:easacc_web_view/services/auth/auth.dart';
 import 'package:easacc_web_view/pages/view/web_veiw.dart';
 import 'package:easacc_web_view/pages/setting/wifi_devices.dart';
+import 'package:easacc_web_view/services/auth/auth_firebase.dart';
+import 'package:easacc_web_view/services/auth/auth_provider.dart';
 import 'package:easacc_web_view/utility/extentions.dart';
 import 'package:easacc_web_view/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _SettingPageState extends State<SettingPage> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () async => await Auth().logout(),
+              onPressed: () async => await AppAuthProvider(auth :AuthFirebase()).logout(),
               icon: const Icon(Icons.logout))
         ],
       ),

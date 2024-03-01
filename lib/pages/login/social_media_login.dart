@@ -1,10 +1,18 @@
-import 'package:easacc_web_view/services/auth/auth.dart';
+import 'package:easacc_web_view/services/auth/auth_firebase.dart';
+import 'package:easacc_web_view/services/auth/auth_provider.dart';
 import 'package:easacc_web_view/utility/extentions.dart';
 import 'package:flutter/material.dart';
 
-class SocialMediaLogin extends StatelessWidget {
-  SocialMediaLogin({super.key});
-  final login = Auth();
+class SocialMediaLogin extends StatefulWidget {
+  const SocialMediaLogin({super.key});
+
+  @override
+  State<SocialMediaLogin> createState() => _SocialMediaLoginState();
+}
+
+class _SocialMediaLoginState extends State<SocialMediaLogin> {
+  final login = AppAuthProvider(auth: AuthFirebase());
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,48 +21,72 @@ class SocialMediaLogin extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton.icon(
-                    icon: const Icon(
-                      Icons.facebook_outlined,
-                      color: Colors.blue,
+        child: isLoading
+            ? const CircularProgressIndicator()
+            : Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: ElevatedButton.icon(
+                          icon: const Icon(
+                            Icons.facebook_outlined,
+                            color: Colors.blue,
+                          ),
+                          label: const Text('FaceBook'),
+                          onPressed: () async => _facebookSignIn()),
                     ),
-                    label: const Text('FaceBook'),
-                    onPressed: () async {
-                    final result=  await login.signInWithFacebook();
-                     result.matching((left) => context.snackBar(left), (right) => null);
-                    }),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton.icon(
-                    icon: const Icon(
-                      Icons.facebook_outlined,
-                      color: Colors.green,
+                    const SizedBox(
+                      height: 20,
                     ),
-                    label: const Text('Google'),
-                    onPressed: () async {
-                 final result=     await login.signInWithGoogle();
-                 result.matching((left) => context.snackBar(left), (right) => null);
-                    }),
-              ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: ElevatedButton.icon(
+                          icon: const Icon(
+                            Icons.facebook_outlined,
+                            color: Colors.green,
+                          ),
+                          label: const Text('Google'),
+                          onPressed: () async => _googleSignIn()),
+                    ),
 
-              // Add Google login button
-            ],
-          ),
-        ),
+                    // Add Google login button
+                  ],
+                ),
+              ),
       ),
     );
+  }
+
+  Future _facebookSignIn() async {
+    if (isLoading) return;
+    setState(() {
+      isLoading = true;
+    });
+    final result = await login.signInWithFacebook();
+    result.matching((left) {
+      setState(() {
+        isLoading = false;
+      });
+      return context.snackBar(left);
+    }, (right) => null);
+  }
+
+  Future _googleSignIn() async {
+    if (isLoading) return;
+    setState(() {
+      isLoading = true;
+    });
+    final result = await login.signInWithGoogle();
+    result.matching((left) {
+      setState(() {
+        isLoading = false;
+      });
+      return context.snackBar(left);
+    }, (right) => null);
   }
 }
