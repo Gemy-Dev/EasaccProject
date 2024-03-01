@@ -74,6 +74,13 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   String? _validateCheck(String? url) {
-    return Uri.parse(url ?? '').isAbsolute ? null : "Please Enter A valid Url";
+  String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+   RegExp regExp = RegExp(pattern);
+ 
+    if (!regExp.hasMatch(url??'')) {
+     return 'Please enter valid url';
+   }
+   return null;
+  
   }
 }
